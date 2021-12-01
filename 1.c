@@ -5,7 +5,7 @@
 
 #define MEASURE_SIZE 3
 
-int part1(int *values, int lineCount)
+int part1(const int *values, int lineCount)
 {
     int numIncreases = 0;
     int previousValue = 0;
@@ -20,7 +20,7 @@ int part1(int *values, int lineCount)
     return numIncreases;
 }
 
-int part2(int *values, int lineCount)
+int part2(const int *values, int lineCount)
 {
     int numIncreases = 0;
     int previousSum = 0;
@@ -57,7 +57,7 @@ int main()
 
         // show results
         printf("Part 1: %d\nPart 2: %d\n", numIncreases, numIncreasesPt2);
-        
+
         // close file and free array
         fclose(f);
         free(values);
