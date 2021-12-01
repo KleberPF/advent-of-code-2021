@@ -5,13 +5,23 @@
 
 #define MEASURE_SIZE 3
 
+int valuesSum(const int *values, int start, int count)
+{
+    int sum = 0;
+    for (int j = 0; j < count; j++) {
+        sum += values[start + j];
+    }
+
+    return sum;
+}
+
 int part1(const int *values, int lineCount)
 {
     int numIncreases = 0;
-    int previousValue = 0;
+    int previousValue = values[0];
 
-    for (int i = 0; i < lineCount; i++) {
-        if (i != 0 && values[i] > previousValue) {
+    for (int i = 1; i < lineCount; i++) {
+        if (values[i] > previousValue) {
             numIncreases++;
         }
         previousValue = values[i];
@@ -23,14 +33,11 @@ int part1(const int *values, int lineCount)
 int part2(const int *values, int lineCount)
 {
     int numIncreases = 0;
-    int previousSum = 0;
+    int previousSum = valuesSum(values, 0, MEASURE_SIZE);
 
-    for (int i = 0; i < lineCount - MEASURE_SIZE + 1; i++) {
-        int sum = 0;
-        for (int j = 0; j < MEASURE_SIZE; j++) {
-            sum += values[i + j];
-        }
-        if (i != 0 && sum > previousSum) {
+    for (int i = 1; i < lineCount - MEASURE_SIZE + 1; i++) {
+        int sum = valuesSum(values, i, MEASURE_SIZE);
+        if (sum > previousSum) {
             numIncreases++;
         }
 
