@@ -57,5 +57,9 @@ int main()
 
         // show results
         printf("Part 1: %d\nPart 2: %d\n", numIncreases, numIncreasesPt2);
+        
+        // close file and free array
+        fclose(f);
+        free(values);
     }
 }
