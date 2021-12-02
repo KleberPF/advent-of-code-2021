@@ -56,7 +56,7 @@ int main()
         // read ints from file
         int lineCount = 0;
         char line[16];
-        for (; readIntFromLine(line, sizeof(line), f, &values[lineCount++]););
+        while (readIntFromLine(line, sizeof(line), f, &values[lineCount++]));
 
         // run part1 and part2
         int numIncreases = part1(values, lineCount);
