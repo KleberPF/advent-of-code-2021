@@ -5,7 +5,7 @@
 
 #define MEASURE_SIZE 3
 
-int valuesSum(const int *values, int start, int count)
+int valuesSum(const int* values, int start, int count)
 {
     int sum = 0;
     for (int j = 0; j < count; j++) {
@@ -15,7 +15,7 @@ int valuesSum(const int *values, int start, int count)
     return sum;
 }
 
-int part1(const int *values, int lineCount)
+int part1(const int* values, int lineCount)
 {
     int numIncreases = 0;
     int previousValue = values[0];
@@ -30,7 +30,7 @@ int part1(const int *values, int lineCount)
     return numIncreases;
 }
 
-int part2(const int *values, int lineCount)
+int part2(const int* values, int lineCount)
 {
     int numIncreases = 0;
     int previousSum = valuesSum(values, 0, MEASURE_SIZE);
@@ -49,9 +49,9 @@ int part2(const int *values, int lineCount)
 
 int main()
 {
-    FILE *f = fopen("../input.txt", "r");
+    FILE* f = fopen("../input.txt", "r");
     if (f) {
-        int *values = malloc(sizeof(*values) * 2048);
+        int* values = malloc(sizeof(*values) * 2048);
 
         // read ints from file
         int lineCount = 0;
