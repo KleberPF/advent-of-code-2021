@@ -9,29 +9,6 @@ typedef enum rating {
     O2,
 } Rating;
 
-int strToBin(char* str)
-{
-    int result = 0;
-    for (; *str; str++) {
-        result <<= 1;
-        if (*str == '1') {
-            result += 1;
-        }
-    }
-
-    return result;
-}
-
-int compareInts(const void* a, const void* b)
-{
-    int arg1 = *(const int*) a;
-    int arg2 = *(const int*) b;
-
-    if (arg1 < arg2) return -1;
-    if (arg1 > arg2) return 1;
-    return 0;
-}
-
 int findRating(int* numbers, int l, int r, int bitPos, Rating rating)
 {
     while (l != r) {
@@ -105,5 +82,5 @@ int main()
     int r = numCount - 1;
 
     printf("Part 2: %d\n", findRating(numbersInt, l, r, length, CO2) *
-                 findRating(numbersInt, l, r, length, O2));
+                           findRating(numbersInt, l, r, length, O2));
 }
