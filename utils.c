@@ -16,6 +16,7 @@ bool readStrFromLine(char* buffer, int length, FILE* f)
     char* result = fgets(buffer, length, f);
     if (result == NULL) { return false; }
     buffer[strcspn(buffer, "\n")] = 0;
+    return true;
 }
 
 int getFileLength(FILE* f)
