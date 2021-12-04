@@ -32,3 +32,26 @@ void readFileToBuffer(char* buffer, int length, FILE* f)
     fread(buffer, 1, length, f);
     buffer[length] = 0;
 }
+
+int strToBin(char* str)
+{
+    int result = 0;
+    for (; *str; str++) {
+        result <<= 1;
+        if (*str == '1') {
+            result += 1;
+        }
+    }
+
+    return result;
+}
+
+int compareInts(const void* a, const void* b)
+{
+    int arg1 = *(const int*) a;
+    int arg2 = *(const int*) b;
+
+    if (arg1 < arg2) return -1;
+    if (arg1 > arg2) return 1;
+    return 0;
+}
