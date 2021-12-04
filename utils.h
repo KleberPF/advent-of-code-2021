@@ -12,4 +12,8 @@ int getFileLength(FILE* f);
 
 void readFileToBuffer(char* buffer, int length, FILE* f);
 
+int strToBin(char* str);
+
+int compareInts(const void* a, const void* b);
+
 #endif //ADVENT_OF_CODE_2021_UTILS_H
