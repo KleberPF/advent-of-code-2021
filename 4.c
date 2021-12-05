@@ -152,5 +152,6 @@ int main()
     printf("Part 2: %d * %d = %d\n", maxBoard.winNumber, maxBoard.sumUnmarkedNumbers,
            maxBoard.winNumber * maxBoard.sumUnmarkedNumbers);
 
+    fclose(f);
     return 0;
 }
