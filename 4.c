@@ -10,40 +10,46 @@ typedef struct boardData {
     int sumUnmarkedNumbers;
 } BoardData;
 
-void getNumbers(int* buffer, int* numCount, FILE* f)
+int getNumbers(int* buffer, FILE* f)
 {
     char numbers[512] = {0};
     char line[256] = {0};
+    int numCount = 0;
     while (readStrFromLine(line, sizeof(line), f)) {
         if (strcmp(line, "") != 0) {
             strcat(numbers, line);
 
             char* token = strtok(numbers, ",");
             do {
-                buffer[(*numCount)++] = strtol(token, NULL, 10);
+                buffer[numCount++] = strtol(token, NULL, 10);
                 token = strtok(NULL, ",");
             } while (token);
         } else {
             break;
         }
     }
+
+    return numCount;
 }
 
-void getBoards(int boards[512][5][5], int* boardCount, FILE* f)
+int getBoards(int boards[512][5][5], FILE* f)
 {
     char line[64];
+    int boardCount = 0;
     do {
         for (int i = 0; i < 5; i++) {
             readStrFromLine(line, sizeof(line), f);
             sscanf(line, "%d %d %d %d %d",
-                   &boards[*boardCount][i][0],
-                   &boards[*boardCount][i][1],
-                   &boards[*boardCount][i][2],
-                   &boards[*boardCount][i][3],
-                   &boards[*boardCount][i][4]);
+                   &boards[boardCount][i][0],
+                   &boards[boardCount][i][1],
+                   &boards[boardCount][i][2],
+                   &boards[boardCount][i][3],
+                   &boards[boardCount][i][4]);
         }
-        (*boardCount)++;
+        boardCount++;
     } while (readStrFromLine(line, sizeof(line), f));
+
+    return boardCount;
 }
 
 bool isBoardWon(bool board[5][5])
@@ -113,13 +119,11 @@ int main()
 
     // get bingo numbers
     int numbers[512];
-    int numCount = 0;
-    getNumbers(numbers, &numCount, f);
+    int numCount = getNumbers(numbers, f);
 
     // get bingo boards
     int boards[512][5][5];
-    int boardCount = 0;
-    getBoards(boards, &boardCount, f);
+    int boardCount = getBoards(boards, f);
 
     // keep found data
     bool foundBoards[512][5][5];
