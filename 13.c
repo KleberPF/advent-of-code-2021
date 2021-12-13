@@ -4,7 +4,7 @@
 
 #include "utils.h"
 
-#define SIZE 2048
+#define SIZE 1500
 
 typedef struct fold {
     char axis;
@@ -35,26 +35,29 @@ int main()
     }
 
     // execute folds
-    // always checks the whole array, so not very efficient
+    int maxJ = SIZE;
+    int maxK = SIZE;
     for (int i = 0; i < foldCount; ++i) {
         if (folds[i].axis == 'x') {
-            for (int j = 0; j < SIZE; ++j) {
-                for (int k = folds[i].value + 1; k < SIZE; ++k) {
+            for (int j = 0; j < maxJ; ++j) {
+                for (int k = folds[i].value + 1; k < maxK; ++k) {
                     if (grid[j][k] == '#') {
                         grid[j][k] = '.';
                         grid[j][k - 2 * (k - folds[i].value)] = '#';
                     }
                 }
             }
+            maxK = folds[i].value + 1;
         } else {
-            for (int j = folds[i].value + 1; j < SIZE; ++j) {
-                for (int k = 0; k < SIZE; ++k) {
+            for (int j = folds[i].value + 1; j < maxJ; ++j) {
+                for (int k = 0; k < maxK; ++k) {
                     if (grid[j][k] == '#') {
                         grid[j][k] = '.';
                         grid[j - 2 * (j - folds[i].value)][k] = '#';
                     }
                 }
             }
+            maxJ = folds[i].value + 1;
         }
         if (i == 0) {
             // count #s
