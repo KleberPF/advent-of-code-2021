@@ -1,5 +1,6 @@
 #include "utils.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 bool readIntFromLine(char* buffer, int length, FILE* f, int* value)
@@ -34,9 +35,9 @@ void readFileToBuffer(char* buffer, int length, FILE* f)
     buffer[length] = 0;
 }
 
-int strToBin(char* str)
+unsigned long long strToBin(char* str)
 {
-    int result = 0;
+    unsigned long long result = 0;
     for (; *str; str++) {
         result <<= 1;
         if (*str == '1') {
@@ -55,4 +56,34 @@ int compareInts(const void* a, const void* b)
     if (arg1 < arg2) return -1;
     if (arg1 > arg2) return 1;
     return 0;
+}
+
+int compareUul(const void* a, const void* b)
+{
+    unsigned long long arg1 = *(const unsigned long long*) a;
+    unsigned long long arg2 = *(const unsigned long long*) b;
+
+    if (arg1 < arg2) return -1;
+    if (arg1 > arg2) return 1;
+    return 0;
+}
+
+int strRangeToBin(char* str, int l, int r)
+{
+    char tmp = str[r];
+    str[r] = 0;
+    int result = strToBin(str + l);
+    str[r] = tmp;
+
+    return result;
+}
+
+void charToBin(char* stream, char c)
+{
+    char tmp[8] = {c};
+    int value = strtol(tmp, NULL, 16);
+    for (int i = 3; i >= 0; --i) {
+        tmp[0] = ((value & (1 << i)) >> i) + '0';
+        strcat(stream, tmp);
+    }
 }
